@@ -528,6 +528,7 @@ class GRPOTrainer(Trainer):
                     top_k=-1 if args.top_k is None else args.top_k,
                     min_p=0.0 if args.min_p is None else args.min_p,
                     repetition_penalty=args.repetition_penalty,
+                    skip_special_tokens=False
                 )
 
             self._last_loaded_step = 0  # tag to avoid useless loading during grad accumulation
@@ -813,7 +814,7 @@ class GRPOTrainer(Trainer):
                     )
 
         # Decode the generated completions
-        completions_text = self.processing_class.batch_decode(completion_ids, skip_special_tokens=True)
+        completions_text = self.processing_class.batch_decode(completion_ids, skip_special_tokens=False)
         if is_conversational(inputs[0]):
             completions = []
             for prompt, completion in zip(prompts, completions_text):
