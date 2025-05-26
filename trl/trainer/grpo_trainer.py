@@ -1049,6 +1049,7 @@ class GRPOTrainer(Trainer):
                     min_p=0.0 if self.min_p is None else self.min_p,
                     max_tokens=self.max_completion_length,
                     guided_decoding=guided_decoding,
+                    skip_special_tokens=False
                 )
 
                 if self.vllm_tensor_parallel_size > 1:
@@ -1132,7 +1133,7 @@ class GRPOTrainer(Trainer):
                 old_per_token_logps = None
 
         # Decode the generated completions
-        completions_text = self.processing_class.batch_decode(completion_ids, skip_special_tokens=True)
+        completions_text = self.processing_class.batch_decode(completion_ids, skip_special_tokens=False)
         if is_conversational(inputs[0]):
             completions = []
             for prompt, completion in zip(prompts, completions_text):
