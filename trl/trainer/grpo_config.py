@@ -129,6 +129,8 @@ class GRPOConfig(TrainingArguments):
             τ parameter from the [TR-DPO](https://huggingface.co/papers/2404.09656) paper, which determines how
             frequently the current policy is synchronized with the reference policy. To use this parameter, you must
             set `sync_ref_model=True`.
+        stop_tokens:
+            list of tokens that stop generating
 
         > Parameters that control the logging
 
@@ -332,3 +334,10 @@ class GRPOConfig(TrainingArguments):
             "installed, it prints the sample. If `wandb` logging is enabled, it logs it to `wandb`."
         },
     )
+
+    stop_tokens: Optional[Union[str, List[str]]] = field(
+            default=None,
+            metadata={
+                "help": "Stop tokens for vLLM generation. Can be a single string or list of strings."
+            }
+        )
