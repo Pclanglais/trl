@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Union, List, Optional
 
 from transformers import TrainingArguments
 
